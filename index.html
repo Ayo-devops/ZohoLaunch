@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZohoLaunch — Your Onboarding Portal</title>
+  <meta name="description" content="Your personalised Zoho onboarding portal — everything you need for a smooth migration.">
+
+  <!-- OG / Social -->
+  <meta property="og:title" content="ZohoLaunch — Your Onboarding Portal">
+  <meta property="og:description" content="Track your Zoho migration progress, complete your intake form, and access all your onboarding resources in one place.">
+  <meta property="og:type" content="website">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ── Nav ─────────────────────────────────────── -->
+<nav>
+  <a href="#" class="logo">Zoho<span>Launch</span></a>
+  <ul class="nav-links">
+    <li><a href="#steps">Steps</a></li>
+    <li><a href="#checklist">My tasks</a></li>
+    <li><a href="#intake">Intake</a></li>
+    <li><a href="#resources">Resources</a></li>
+    <li><a href="#payment">Payment</a></li>
+  </ul>
+</nav>
+
+<!-- ── Hero ────────────────────────────────────── -->
+<div class="hero">
+  <div class="page-wrap">
+    <div class="hero-badge">Your onboarding portal</div>
+    <h1>Welcome to your Zoho journey,<br><span class="client-name"></span></h1>
+    <p class="hero-sub">Everything you need to get from where you are to where you're going — all in one place.</p>
+
+    <div class="ring-wrap">
+      <svg width="88" height="88" viewBox="0 0 90 90" aria-label="Overall onboarding progress">
+        <circle class="ring-track" cx="45" cy="45" r="40"/>
+        <circle class="ring-fill" id="ringFill" cx="45" cy="45" r="40"/>
+        <text class="ring-text" id="ringText" x="45" y="51" text-anchor="middle">0%</text>
+      </svg>
+      <span class="ring-label">Overall progress</span>
+    </div>
+
+    <a href="#steps" class="hero-cta">View your onboarding steps ↓</a>
+  </div>
+</div>
+
+<!-- ── Main content ─────────────────────────────── -->
+<div class="page-wrap">
+
+  <!-- Steps -->
+  <section id="steps" class="section reveal">
+    <div class="section-label">Process</div>
+    <h2 class="section-title">Your onboarding steps</h2>
+    <p class="section-sub">Here's exactly what happens between now and your team going live on Zoho.</p>
+    <div class="timeline" id="timeline"></div>
+  </section>
+
+  <!-- Checklist -->
+  <section id="checklist" class="section reveal">
+    <div class="section-label">Action items</div>
+    <h2 class="section-title">Your tasks</h2>
+    <p class="section-sub">These are things only you can do. Tick them off as you go — your progress saves automatically.</p>
+    <div class="checklist-card">
+      <div class="progress-meta">
+        <span>Progress</span>
+        <span id="checkCount">0 of 0 complete</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="checkBar" style="width:0%"></div>
+      </div>
+      <div id="checklistItems"></div>
+    </div>
+  </section>
+
+  <!-- Intake Form -->
+  <section id="intake" class="section reveal">
+    <div class="section-label">Intake form</div>
+    <h2 class="section-title">Tell us about your business</h2>
+    <p class="section-sub">This helps us configure Zoho exactly the way your team works. Takes about 3 minutes.</p>
+    <div class="form-card">
+      <form id="intakeForm" novalidate>
+
+        <!-- Web3Forms hidden fields -->
+        <input type="hidden" name="access_key" id="w3fKey">
+        <input type="hidden" name="subject" id="w3fSubject">
+        <input type="hidden" name="from_name" value="ZohoLaunch Portal">
+        <input type="checkbox" name="botcheck" style="display:none">
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="bizName">Business name</label>
+            <input type="text" id="bizName" name="business_name" required placeholder="e.g. Sunshine Coaching Co.">
+          </div>
+          <div class="form-group">
+            <label for="industry">Industry</label>
+            <select id="industry" name="industry">
+              <option>Coaching & consulting</option>
+              <option>E-commerce</option>
+              <option>Real estate</option>
+              <option>Healthcare</option>
+              <option>Professional services</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group full">
+            <label>Tools you're currently replacing</label>
+            <div class="checkbox-pills">
+              <label class="pill"><input type="checkbox" name="tools" value="QuickBooks"> QuickBooks</label>
+              <label class="pill"><input type="checkbox" name="tools" value="Spreadsheets"> Spreadsheets</label>
+              <label class="pill"><input type="checkbox" name="tools" value="HubSpot"> HubSpot</label>
+              <label class="pill"><input type="checkbox" name="tools" value="Salesforce"> Salesforce</label>
+              <label class="pill"><input type="checkbox" name="tools" value="Other CRM"> Other CRM</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="teamSize">Team members needing Zoho access</label>
+            <select id="teamSize" name="team_size">
+              <option>Just me (1)</option>
+              <option>2–5</option>
+              <option>6–15</option>
+              <option>16+</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="callTime">Preferred call time (US Eastern)</label>
+            <select id="callTime" name="preferred_call_time">
+              <option>Morning (9am–12pm)</option>
+              <option>Afternoon (12pm–4pm)</option>
+              <option>Evening (4pm–7pm)</option>
+            </select>
+          </div>
+          <div class="form-group full">
+            <label for="goals">Your top 3 goals for using Zoho</label>
+            <textarea id="goals" name="goals" placeholder="e.g. Track leads better, automate invoicing, get rid of spreadsheets..." required></textarea>
+          </div>
+        </div>
+
+        <button type="submit" class="form-submit" id="submitBtn">Submit intake form →</button>
+        <div class="form-success" id="formSuccess">
+          ✓ Got it! We'll be in touch within 24 hours to confirm your kickoff call.
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Resources -->
+  <section id="resources" class="section reveal">
+    <div class="section-label">Resources</div>
+    <h2 class="section-title">Everything you need</h2>
+    <p class="section-sub">Quick-access guides and links for your migration journey.</p>
+    <div class="resources-grid" id="resourcesGrid"></div>
+  </section>
+
+</div><!-- /page-wrap -->
+
+<!-- ── Payment ──────────────────────────────────── -->
+<div class="payment-section" id="payment">
+  <div class="section-label">Payment</div>
+  <h2>Ready to begin?</h2>
+  <p>Complete your payment to kick off the migration. Secure and processed via Zoho Books.</p>
+  <div class="payment-amount" id="payAmount"></div>
+  <div class="payment-desc" id="payDesc"></div>
+  <a href="#" class="pay-btn" id="payBtn">Pay via Zoho Books →</a>
+  <p class="trust-line">🔒 Secure payment processed via Zoho Books</p>
+</div>
+
+<!-- ── Footer ───────────────────────────────────── -->
+<footer>
+  <p>
+    Built by <a id="footerName" href="#"></a> ·
+    <a id="footerPortfolio" href="#">Portfolio</a> ·
+    <a id="footerLinkedin" href="#">LinkedIn</a> ·
+    <a id="footerEmail" href="#">Email</a>
+  </p>
+  <p style="margin-top:0.4rem">Zoho Ecosystem Specialist</p>
+</footer>
+
+<!-- ── Config must load before app.js ───────────── -->
+<script src="config.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
